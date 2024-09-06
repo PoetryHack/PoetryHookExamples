@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.poetryhack.poetryhook.example</groupId>
+  <artifactId>PoetryHookExamples</artifactId>
+  <version>1.0.0</version>
+
+  <build>
+    <plugins>
+      <!--
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>net.poetryhack.poetryhook.example.AppMain</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <configuration>
+          <mainClass>net.poetryhack.poetryhook.example.AppMain</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>net.poetryhack.poetryhook</groupId>
+      <artifactId>poetryhook</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+  </dependencies>
+</project>

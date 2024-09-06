@@ -14,6 +14,8 @@ public class HookMe {
         System.out.println("setReturnValue() returned `" + setReturnValue() + "`");
     }
 
+    // todo examples with non-static methods
+
     private static void preAndPostHooks() {
         System.out.println("normal print statement");
     }
@@ -23,6 +25,6 @@ public class HookMe {
     }
 
     private static void accessingArgument(@SuppressWarnings("SameParameterValue") String argument) {
-        System.out.println("accessingArgument(String) called with argument " + argument);
+        System.out.println("accessingArgument(String) called");
     }
 }

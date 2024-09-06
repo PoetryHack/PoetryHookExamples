@@ -1,32 +1,44 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.poetryhack.poetryhook.example</groupId>
-  <artifactId>PoetryHookExamples</artifactId>
+  <groupId>net.poetryhack.poetryhook.examples</groupId>
+  <artifactId>PoetryHookExampleAgent</artifactId>
   <version>1.0.0</version>
 
   <build>
     <plugins>
-      <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
         <configuration>
+          <includes>
+            <include>net/poetryhack/poetryhook/examples/exampleagent/**</include>
+          </includes>
           <archive>
+            <!--
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>net.poetryhack.poetryhook.example.AppMain</mainClass>
             </manifest>
+            -->
+            <manifestEntries>
+              <Agent-Class>net.poetryhack.poetryhook.examples.exampleagent.AgentMain</Agent-Class>
+            </manifestEntries>
           </archive>
         </configuration>
       </plugin>
-      -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.2.1</version>
         <configuration>
-          <mainClass>net.poetryhack.poetryhook.example.AppMain</mainClass>
+          <executable>java</executable>
+          <arguments>
+            <argument>-Djdk.attach.allowAttachSelf=true</argument>
+            <argument>-classpath</argument>
+            <classpath />
+            <argument>net.poetryhack.poetryhook.examples.exampleapp.AppMain</argument>
+          </arguments>
         </configuration>
       </plugin>
     </plugins>

@@ -16,13 +16,9 @@
             <include>net/poetryhack/poetryhook/examples/exampleagent/**</include>
           </includes>
           <archive>
-            <!--
-            <manifest>
-              <addClasspath>true</addClasspath>
-            </manifest>
-            -->
             <manifestEntries>
               <Agent-Class>net.poetryhack.poetryhook.examples.exampleagent.AgentMain</Agent-Class>
+              <Can-Retransform-Classes>true</Can-Retransform-Classes>
             </manifestEntries>
           </archive>
         </configuration>

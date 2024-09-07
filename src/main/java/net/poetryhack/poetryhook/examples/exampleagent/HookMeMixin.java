@@ -8,7 +8,6 @@ import net.poetryhack.poetryhook.MixinBase;
 import net.poetryhack.poetryhook.annotations.Inject;
 import net.poetryhack.poetryhook.annotations.StringMixin;
 import net.poetryhack.poetryhook.util.InjectLocation;
-import net.poetryhack.poetryhook.util.MixinReturnObject;
 
 @StringMixin("net.poetryhack.poetryhook.examples.exampleapp.HookMe")
 public class HookMeMixin implements MixinBase {
@@ -30,18 +29,6 @@ public class HookMeMixin implements MixinBase {
         System.out.println("After preAndPostHooks from hook");
     }
 
-    /*
-    WIP
-    @Inject(
-            value = "hookReturnValue",
-            returnFromHook = true,
-            forceUseAnnotationArgs = true
-    )
-    public static MixinReturnObject hookReturnValueHook() {
-        return new MixinReturnObject(999, true);
-    }
-    */
-
     @Inject(
             value = "accessingArgument",
             injectLocation = InjectLocation.HEAD,
@@ -52,6 +39,4 @@ public class HookMeMixin implements MixinBase {
     public static void accessingArgumentHook(String argument) {
         System.out.println("printing accessingArgument(String): " + argument + " from hook");
     }
-
-    // if the method being hooked isn't static, put an argument of the type being hooked before all other arguments
 }

@@ -10,12 +10,7 @@ public class HookMe {
         preAndPostHooks();
 
         accessingArgument("foobar");
-
-//        WIP
-//        System.out.println("hookReturnValue returned " + hookReturnValue());
     }
-
-    // todo examples with non-static methods
 
     private static void preAndPostHooks() {
         System.out.println("preAndPostHooks normal print statement");
@@ -24,8 +19,4 @@ public class HookMe {
     private static void accessingArgument(@SuppressWarnings("SameParameterValue") String argument) {
         System.out.println("accessingArgument called from normal application");
     }
-
-//    private static int hookReturnValue() {
-//        return 1;
-//    }
 }

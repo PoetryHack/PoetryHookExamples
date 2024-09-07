@@ -8,13 +8,13 @@ import net.poetryhack.poetryhook.MixinBase;
 import net.poetryhack.poetryhook.annotations.Inject;
 import net.poetryhack.poetryhook.annotations.StringMixin;
 import net.poetryhack.poetryhook.util.InjectLocation;
+import net.poetryhack.poetryhook.util.MixinReturnObject;
 
 @StringMixin("net.poetryhack.poetryhook.examples.exampleapp.HookMe")
 public class HookMeMixin implements MixinBase {
 
     @Inject(
             value = "preAndPostHooks",
-            injectLocation = InjectLocation.HEAD,
             forceUseAnnotationArgs = true
     )
     public static void preAndPostHooksPreHook() {
@@ -30,19 +30,24 @@ public class HookMeMixin implements MixinBase {
         System.out.println("After preAndPostHooks from hook");
     }
 
+    /*
+    WIP
     @Inject(
-            value = "setReturnValue",
+            value = "hookReturnValue",
             returnFromHook = true,
             forceUseAnnotationArgs = true
     )
-    public static int setReturnValueHook() {
-        return 999;
+    public static MixinReturnObject hookReturnValueHook() {
+        return new MixinReturnObject(999, true);
     }
+    */
 
     @Inject(
             value = "accessingArgument",
-            // the following two are useful to avoid hooking the wrong method due to name collisions
-            toHookArgs = { String.class }
+            injectLocation = InjectLocation.HEAD,
+            // the following is useful to avoid hooking the wrong method due to name collisions
+            toHookArgs = { String.class },
+            forceUseAnnotationArgs = true
     )
     public static void accessingArgumentHook(String argument) {
         System.out.println("printing accessingArgument(String): " + argument + " from hook");

@@ -11,20 +11,21 @@ public class HookMe {
 
         accessingArgument("foobar");
 
-        System.out.println("setReturnValue() returned `" + setReturnValue() + "`");
+//        WIP
+//        System.out.println("hookReturnValue returned " + hookReturnValue());
     }
 
     // todo examples with non-static methods
 
     private static void preAndPostHooks() {
-        System.out.println("normal print statement");
-    }
-
-    private static int setReturnValue() {
-        return 1;
+        System.out.println("preAndPostHooks normal print statement");
     }
 
     private static void accessingArgument(@SuppressWarnings("SameParameterValue") String argument) {
-        System.out.println("accessingArgument(String) called");
+        System.out.println("accessingArgument called from normal application");
     }
+
+//    private static int hookReturnValue() {
+//        return 1;
+//    }
 }

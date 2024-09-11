@@ -7,6 +7,29 @@
 
   <profiles>
     <profile>
+      <id>build-injector</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.3.0</version>
+            <configuration>
+              <includes>
+                <include>net/poetryhack/poetryhook/examples/exampleinjector/**</include>
+              </includes>
+              <finalName>PoetryHookExampleInjector</finalName>
+              <archive>
+                <manifest>
+                  <mainClass>net.poetryhack.poetryhook.examples.exampleinjector.InjectorMain</mainClass>
+                </manifest>
+              </archive>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
       <id>build-agent</id>
       <build>
         <plugins>
@@ -26,6 +49,7 @@
                       <artifact>*:*</artifact>
                       <excludes>
                         <exclude>net/poetryhack/poetryhook/examples/exampleapp/**</exclude>
+                        <exclude>net/poetryhack/poetryhook/examples/exampleinjector/**</exclude>
                       </excludes>
                     </filter>
                   </filters>

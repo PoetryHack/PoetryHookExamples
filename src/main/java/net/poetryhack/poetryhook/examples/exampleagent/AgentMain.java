@@ -16,7 +16,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public class AgentMain {
-    public static void agentmain(String ignoredAgentArgs, Instrumentation inst)
+    public static void agentmain(String agentArgs, Instrumentation inst)
             throws IOException, NoSuchMethodException, IllegalAccessException, URISyntaxException, ClassNotFoundException, InvocationTargetException
     {
         @SuppressWarnings("resource") JarFile jarFile = new JarFile(new File(AgentMain.class.getProtectionDomain().getCodeSource().getLocation().toURI()));
@@ -36,7 +36,10 @@ public class AgentMain {
             for (JarEntry file : jarFile.stream().toList()) {
                 if (
                         file.getName().endsWith(".class") && file.getName().startsWith("net.poetryhack.poetryhook")
-                                && !(file.getName().contains("HookMe") || file.getName().contains("AppMain"))  // needed because the package name of the example app, example agent, and poetryhook library are all similar
+                                && !(
+                                file.getName().contains("exampleapp")
+                                        || file.getName().contains("exampleinjector")
+                        )  // needed because the package name of the example app, example agent, and poetryhook library are all similar
                 ) {
                     entries.add(file);
                 }
@@ -73,6 +76,11 @@ public class AgentMain {
             }
         }
 
-        classLoader.loadClass("net.poetryhack.poetryhook.examples.exampleagent.MixinMain").getMethod("registerHooks", Instrumentation.class).invoke(null, inst);
+        boolean eject = agentArgs != null;
+        if (eject) {
+            classLoader.loadClass("net.poetryhack.poetryhook.examples.exampleagent.MixinMain").getMethod("ejectHooks", Instrumentation.class).invoke(null, inst);
+        } else {
+            classLoader.loadClass("net.poetryhack.poetryhook.examples.exampleagent.MixinMain").getMethod("registerHooks", Instrumentation.class).invoke(null, inst);
+        }
     }
 }

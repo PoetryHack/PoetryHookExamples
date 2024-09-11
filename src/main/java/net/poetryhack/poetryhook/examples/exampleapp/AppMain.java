@@ -4,49 +4,37 @@
 
 package net.poetryhack.poetryhook.examples.exampleapp;
 
-import com.sun.tools.attach.AgentInitializationException;
-import com.sun.tools.attach.AgentLoadException;
-import com.sun.tools.attach.AttachNotSupportedException;
-import com.sun.tools.attach.VirtualMachine;
-
-import java.io.IOException;
+import java.util.Scanner;
 
 public class AppMain {
-    public static void main(String[] args)
-            throws AgentLoadException, IOException, AttachNotSupportedException, AgentInitializationException
-    {
-        System.out.println("--- running all tests before hooking");
+    public static void main(String[] args) {
+        long pid = ProcessHandle.current().pid();
+        System.out.println("PID: " + pid);
+
+        System.out.println("--- start first run");
         HookMe.runAllMethods();
+        System.out.println("--- end first run");
 
-        System.out.println("--- hooking methods");
-        loadAgent();
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("--- running all tests after hooking");
-        HookMe.runAllMethods();
-
-        // unhooking should be done by the agent
-    }
-
-    private static void loadAgent()
-            throws IOException, AgentLoadException, AgentInitializationException, AttachNotSupportedException
-    {
-        String agentPath = System.getenv("POETRYHOOK_EXAMPLE_AGENT_PATH");
-        if (agentPath == null) {
-            throw new RuntimeException("POETRYHOOK_EXAMPLE_AGENT_PATH environmental variable is undefined. " +
-                    "Try setting to 'target/PoetryHookExampleAgent-1.0.0.jar'"
-            );
+        boolean keepRunning = true;
+        while (keepRunning) {
+            System.out.print("enter \"run\" to run the tests, \"pid\" to print pid, and anything else to exit: ");
+            String choice = scanner.nextLine();
+            switch (choice) {
+                case "run" -> {
+                    System.out.println("---");
+                    HookMe.runAllMethods();
+                    System.out.println("---");
+                }
+                case "pid" -> {
+                    System.out.println("---");
+                    System.out.println(pid);
+                    System.out.println("---");
+                }
+                default -> keepRunning = false;
+            }
         }
-
-        VirtualMachine vm;
-        try {
-            vm = VirtualMachine.attach(String.valueOf(ProcessHandle.current().pid()));
-        } catch (IOException e) {
-            throw new IOException("make sure you are launching with jdk.attach.allowAttachSelf=true", e);
-        }
-        try {
-            vm.loadAgent(agentPath);
-        } finally {
-            vm.detach();
-        }
+        scanner.close();
     }
 }

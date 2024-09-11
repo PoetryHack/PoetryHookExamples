@@ -13,8 +13,7 @@ import net.poetryhack.poetryhook.util.InjectLocation;
 public class HookMeMixin implements MixinBase {
 
     @Inject(
-            value = "preAndPostHooks",
-            forceUseAnnotationArgs = true
+            value = "preAndPostHooks"
     )
     public static void preAndPostHooksPreHook() {
         System.out.println("Before preAndPostHooks from hook");
@@ -22,8 +21,7 @@ public class HookMeMixin implements MixinBase {
 
     @Inject(
             value = "preAndPostHooks",
-            injectLocation = InjectLocation.TAIL,
-            forceUseAnnotationArgs = true
+            injectLocation = InjectLocation.TAIL
     )
     public static void preAndPostHooksPostHook() {
         System.out.println("After preAndPostHooks from hook");
@@ -31,12 +29,9 @@ public class HookMeMixin implements MixinBase {
 
     @Inject(
             value = "accessingArgument",
-            injectLocation = InjectLocation.HEAD,
-            // the following is useful to avoid hooking the wrong method due to name collisions
-            toHookArgs = { String.class },
-            forceUseAnnotationArgs = true
+            injectLocation = InjectLocation.HEAD
     )
     public static void accessingArgumentHook(String argument) {
-        System.out.println("printing accessingArgument(String): " + argument + " from hook");
+        System.out.println("printing accessingArgument(" + argument + ") from hook");
     }
 }

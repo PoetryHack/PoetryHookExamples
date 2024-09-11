@@ -15,26 +15,23 @@ public class InjectorMain {
     public static void main(String[] args)
             throws AgentLoadException, IOException, AttachNotSupportedException, AgentInitializationException
     {
-        boolean eject = false;
-        if (args.length > 1) {
+        boolean eject;
+        if (args[1].equals("eject")) {
             eject = true;
+        } else if (args[1].equals("inject")) {
+            eject = false;
+        } else {
+            throw new RuntimeException("invalid command passed");
         }
-        loadAgent(args[0], eject);
+        loadAgent(args[0], args[2], eject);
     }
 
-    private static void loadAgent(String pid, boolean eject)
+    private static void loadAgent(String agentPath, String pid, boolean eject)
             throws IOException, AgentLoadException, AgentInitializationException, AttachNotSupportedException
     {
         String args = null;
         if (eject) {
-            args = "somethingtomakeargsnotnull";  // todo make this more robust
-        }
-
-        String agentPath = System.getenv("POETRYHOOK_EXAMPLE_AGENT_PATH");
-        if (agentPath == null) {
-            throw new RuntimeException("POETRYHOOK_EXAMPLE_AGENT_PATH environmental variable is undefined. " +
-                    "Try setting to 'target/PoetryHookExampleAgent-1.0.0.jar'"
-            );
+            args = "foobar";  // todo make this more robust
         }
 
         VirtualMachine vm = VirtualMachine.attach(pid);

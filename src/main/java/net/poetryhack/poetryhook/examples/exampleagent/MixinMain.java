@@ -11,15 +11,21 @@ import static net.poetryhack.poetryhook.PoetryHookInjector.injectMixins;
 import static net.poetryhack.poetryhook.PoetryHookInjector.retransformAllRelevantClasses;
 
 public class MixinMain {
+    @SuppressWarnings("unused")
     public static void registerHooks(Instrumentation inst) {
-        injectMixins(inst, true, new HookMeMixin());
+        injectMixins(inst, true,
+                new HookMeMixin(),
+                new StaticHookMeMixin()
+        );
     }
 
+    @SuppressWarnings("unused")
     public static void ejectHooks(Instrumentation inst) throws ClassNotFoundException {
         // real projects will have better ways to eject by using the return of injectMixins instead of hardcoding the hooked classes
 
         ArrayList<Class<?>> clazzes = new ArrayList<>();
         clazzes.add(ClassLoader.getSystemClassLoader().loadClass("net.poetryhack.poetryhook.examples.exampleapp.HookMe"));
+        clazzes.add(ClassLoader.getSystemClassLoader().loadClass("net.poetryhack.poetryhook.examples.exampleapp.StaticHookMe"));
         retransformAllRelevantClasses(inst, clazzes);
     }
 }

@@ -1,22 +1,29 @@
 /**
- * Created: 09.06.2024
+ * Created: 09.12.2024
  */
 
 package net.poetryhack.poetryhook.examples.exampleapp;
 
 public class HookMe {
+    @SuppressWarnings({"FieldMayBeFinal"})
+    private String stringToChange;
+    private int counter;
 
-    public static void runAllMethods() {
-        preAndPostHooks();
-
-        accessingArgument("foobar");
+    public HookMe(int counter, String stringToChange) {
+        this.counter = counter;
+        this.stringToChange = stringToChange;
     }
 
-    private static void preAndPostHooks() {
-        System.out.println("preAndPostHooks normal print statement");
+    public void runAllMethods() {
+        System.out.println("the non-static field stringToChange is: \"" + printStringToChange() + "\"");
+        System.out.println("counter is equal to " + getCounterMethod());
     }
 
-    private static void accessingArgument(@SuppressWarnings("SameParameterValue") String argument) {
-        System.out.println("accessingArgument called from normal application");
+    private String printStringToChange() {
+        return stringToChange;
+    }
+
+    private int getCounterMethod() {
+        return counter++;
     }
 }

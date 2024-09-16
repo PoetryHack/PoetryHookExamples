@@ -3,9 +3,7 @@ this repo contains examples for PoetryHook
 
 to compile everything, run
 ```shell
-mvn package -Pbuild-app
-mvn package -Pbuild-agent
-mvn package -Pbuild-injector
+mvn package -Pbuild-all
 ```
 
 to run the application, run

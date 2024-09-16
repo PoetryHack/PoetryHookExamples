@@ -1,0 +1,16 @@
+<project name="build-all" default="build-all" basedir=".">
+  <target name="build-all">
+    <exec executable="mvn">
+      <arg value="package"/>
+      <arg value="-Pbuild-app"/>
+    </exec>
+    <exec executable="mvn">
+      <arg value="package"/>
+      <arg value="-Pbuild-agent"/>
+    </exec>
+    <exec executable="mvn">
+      <arg value="package"/>
+      <arg value="-Pbuild-injector"/>
+    </exec>
+  </target>
+</project>
